@@ -4,7 +4,8 @@ import numpy as np
 def exec(data):
     medians = {}
     for column, values in data.items():
-        median_value = np.median(values)
-        # Round the median to 6 decimal places
-        medians[column] = np.round(median_value, 6)
+        if all(isinstance(v, (int, float)) for v in values):
+            median_value = np.median(values)
+            # Round the median to 6 decimal places
+            medians[column] = np.round(median_value, 6)
     return json.dumps(medians)
